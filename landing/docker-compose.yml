@@ -1,0 +1,13 @@
+services:
+  landing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: puppydataserver-landing
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./stats.json:/app/stats.json
+    env_file:
+      - .env
