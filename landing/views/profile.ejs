@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %>
+
+<body>
+
+    <%- include('partials/nav') %>
+
+    <main>
+        <section class="profile">
+            <div class="profile-inner">
+
+                <% if (error) { %>
+                <p class="profile-error"><%= error %></p>
+
+                <% } else if (profile) { %>
+
+                <% if (profile.avatar) { %>
+                <img class="profile-avatar" src="<%= profile.avatar %>" alt="" width="96" height="96">
+                <% } else { %>
+                <div class="profile-avatar profile-avatar_empty"></div>
+                <% } %>
+
+                <div class="profile-identity">
+                    <% if (profile.display_name) { %>
+                    <h1 class="profile-display-name"><%= profile.display_name %></h1>
+                    <% } else { %>
+                    <h1 class="profile-display-name"><%= profile.handle %></h1>
+                    <% } %>
+                    <a class="profile-handle" href="https://bsky.app/profile/<%= profile.handle %>" target="_blank" rel="noopener">@<%= profile.handle %></a>
+                </div>
+
+                <ul class="profile-stats">
+                    <% if (profile.followers_count !== null) { %>
+                    <li class="profile-stat"><i data-lucide="users"></i><span><%= profile.followers_count.toLocaleString() %> followers</span></li>
+                    <% } %>
+                    <% if (profile.follows_count !== null) { %>
+                    <li class="profile-stat"><i data-lucide="user-check"></i><span><%= profile.follows_count.toLocaleString() %> following</span></li>
+                    <% } %>
+                    <% if (profile.posts_count !== null) { %>
+                    <li class="profile-stat"><i data-lucide="pencil"></i><span><%= profile.posts_count.toLocaleString() %> posts</span></li>
+                    <% } %>
+                    <% if (profile.reposts_count !== null) { %>
+                    <li class="profile-stat"><i data-lucide="repeat-2"></i><span><%= profile.reposts_count.toLocaleString() %><%= profile.reposts_capped ? '+' : '' %> reposts</span></li>
+                    <% } %>
+                    <% if (profile.likes_given !== null) { %>
+                    <li class="profile-stat"><i data-lucide="heart"></i><span><%= profile.likes_given.toLocaleString() %><%= profile.likes_capped ? '+' : '' %> likes given</span></li>
+                    <% } %>
+                    <li class="profile-stat profile-stat_records"><i data-lucide="database"></i>
+                      <span>
+                        <%= profile.total_capped ? profile.total_records.toLocaleString() + '+' : profile.total_records.toLocaleString() %> records across <%= profile.collections_count %> collections
+                      </span>
+                    </li>
+                </ul>
+
+                <% } %>
+
+            </div>
+        </section>
+    </main>
+
+    <div class="bottom-bar">
+        <div class="collar-divider">
+            <%- include('partials/footer') %>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

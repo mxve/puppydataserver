@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %>
+
+<body>
+
+    <%- include('partials/nav') %>
+
+    <% if (invited) { %>
+    <div class="toast toast_success" id="toast">
+        <i data-lucide="check-circle"></i>
+        <span>request sent, watch out for a dm on bluesky!</span>
+        <button class="toast-close" onclick="this.closest('.toast').remove()" aria-label="Dismiss">
+            <i data-lucide="x"></i>
+        </button>
+    </div>
+    <% } %>
+
+    <% if (error) { %>
+    <div class="toast toast_error" id="toast">
+        <i data-lucide="alert-circle"></i>
+        <span>something went wrong, please try again</span>
+        <button class="toast-close" onclick="this.closest('.toast').remove()" aria-label="Dismiss">
+            <i data-lucide="x"></i>
+        </button>
+    </div>
+    <% } %>
+
+    <% if (pds_down) { %>
+    <div class="pds-banner">
+        <i data-lucide="wifi-off"></i>
+        <span>the pds is currently unavailable<% if (down_since) { %> - down since <time data-down-since="<%= down_since.toISOString() %>"></time><% } %></span>
+    </div>
+    <% } %>
+
+    <main>
+        <section class="hero">
+            <div class="hero-inner">
+                <img class="hero-logo" src="/img/256x.png" alt="PuppyDataServer logo" width="128" height="128">
+                <h1 class="hero-title">PuppyDataServer</h1>
+                <p class="hero-tagline">
+                    a small doghouse<sup>1</sup> on atproto ♡<br>
+                    ran with care by <a href="/profile/emilia.wtf" class="hero-link">@emilia.wtf</a>
+                </p>
+                <div class="hero-tags">
+                    <span class="hero-tag">
+                        <i data-lucide="server"></i>
+                        <a href="https://tangled.org/futur.blue/pegasus" class="hero-tag-link" target="_blank" rel="noopener">Pegasus</a>
+                        by
+                        <a href="https://bsky.app/profile/futur.blue" class="hero-tag-link" target="_blank" rel="noopener">@futur.blue</a>
+                    </span>
+                    <span class="hero-tag">
+                        <i data-lucide="shield-check"></i>
+                        TOTP MFA + passkeys
+                    </span>
+                </div>
+                <div class="hero-ctas">
+                    <button class="btn btn_primary" data-open-modal="invite">
+                        <i data-lucide="paw-print"></i>
+                        Request an Invite
+                    </button>
+                    <a href="https://puppydataserver.com/account/login" class="btn btn_outline">
+                        <i data-lucide="log-in"></i>
+                        Login
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <% if (!pds_down && has_stats && stats_items.length > 0) { %>
+        <section class="site-stats">
+            <ul class="site-stats-list">
+                <% stats_items.forEach(item => { %>
+                <li class="site-stats-item">
+                    <i data-lucide="<%= item.icon %>"></i>
+                    <span class="site-stats-value"><%= item.value %></span>
+                    <span class="site-stats-label"><%= item.label %></span>
+                </li>
+                <% }) %>
+            </ul>
+        </section>
+        <% } %>
+
+    </main>
+
+    <div class="bottom-bar">
+        <p class="footnote"><sup>1</sup>non-exclusive</p>
+        <div class="collar-divider">
+            <%- include('partials/footer') %>
+        </div>
+    </div>
+
+    <div class="modal" id="invite-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-card">
+            <button class="modal-close" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+            <img class="modal-logo" src="/img/256x.png" alt="" width="64" height="64" aria-hidden="true">
+            <h2 class="modal-title" id="modal-title">heyy!!</h2>
+            <p class="modal-body">pop in your handle to request an invite code</p>
+            <form class="invite-form" action="/oauth/start" method="post">
+                <input class="invite-form-input" type="text" name="handle" placeholder="your.handle.here" autocomplete="off" spellcheck="false" required>
+                <input class="invite-form-input" type="text" name="contact" placeholder="contact me at... (optional)" autocomplete="off" spellcheck="false">
+                <button class="btn btn_primary invite-form-submit" type="submit">
+                    <i data-lucide="arrow-right"></i>
+                    continue
+                </button>
+            </form>
+            <p class="modal-footnote">you'll be asked to login on your current pds to verify your handle</p>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

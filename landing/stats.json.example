@@ -1,0 +1,7 @@
+{
+  "disk_gb": 0.311,
+  "blobs": 556,
+  "custom": [
+    { "label": "idk", "value": "142", "icon": "pencil" }
+  ]
+}

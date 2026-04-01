@@ -1,0 +1,9 @@
+export const BASE_URL = process.env.BASE_URL || "https://puppydataserver.com";
+export const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || "";
+export const PORT = process.env.PORT || 3000;
+export const BIND_ADDR = process.env.BIND_ADDR || '127.0.0.1';
+export const PDS_URL = process.env.PDS_URL || "https://puppydataserver.com";
+export const STATS_FILE = process.env.STATS_FILE || "stats.json";
+export const BSKY_API = process.env.BSKY_API || "https://public.api.bsky.app";
+export const COLLECTION_PAGE_CAP = process.env.COLLECTION_PAGE_CAP || 20;
+export const BSKY_CACHE_TTL = process.env.BSKY_CACHE_TTL || 60_000;

@@ -1,0 +1,3 @@
+[submodule "pegasus"]
+	path = pegasus
+	url = git@github.com:mxve/pegasus.git
