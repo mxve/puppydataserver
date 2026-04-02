@@ -2,10 +2,10 @@ import { NodeOAuthClient } from "@atproto/oauth-client-node";
 import { BASE_URL } from "../config.js";
 
 export const CLIENT_METADATA = {
-  client_id: `${BASE_URL}/oauth/client-metadata.json`,
+  client_id: `${BASE_URL}/verify/client-metadata.json`,
   client_name: "PuppyDataServer",
   client_uri: BASE_URL,
-  redirect_uris: [`${BASE_URL}/oauth/callback`],
+  redirect_uris: [`${BASE_URL}/verify/callback`],
   scope: "atproto transition:generic",
   grant_types: ["authorization_code", "refresh_token"],
   response_types: ["code"],

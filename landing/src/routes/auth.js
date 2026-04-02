@@ -12,13 +12,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const router = Router();
 const pending_invites = new Map();
 
-router.get("/oauth/client-metadata.json", (_req, res) => {
+router.get("/verify/client-metadata.json", (_req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Cache-Control", "no-store");
   res.json(CLIENT_METADATA);
 });
 
-router.post("/oauth/start", rate_limit(5, 60_000), async (req, res) => {
+router.post("/verify/start", rate_limit(5, 60_000), async (req, res) => {
   if (!oauth_client) return res.redirect("/?error=1");
   const handle = (req.body.handle || "").trim().replace(/^@/, "");
   if (!handle) return res.redirect("/?error=1");
@@ -51,7 +51,7 @@ router.post("/oauth/start", rate_limit(5, 60_000), async (req, res) => {
   }
 });
 
-router.get("/oauth/callback", rate_limit(10, 60_000), async (req, res) => {
+router.get("/verify/callback", rate_limit(10, 60_000), async (req, res) => {
   if (!oauth_client) return res.redirect("/?error=1");
 
   const cookie_header = req.headers.cookie || "";
